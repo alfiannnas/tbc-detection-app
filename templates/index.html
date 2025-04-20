@@ -50,7 +50,11 @@
             </div>
 
             <div class="text-center mb-4">
-                <img id="preview" class="img-fluid rounded">
+                <img id="preview" class="img-fluid rounded mx-auto d-block">
+            </div>
+
+            <div class="text-center mb-4" id="loading" style="display: none;">
+                <p>Memproses prediksi, harap tunggu...</p>
             </div>
 
             <div class="result-card card mb-4" id="resultCard">
@@ -80,6 +84,7 @@
         const resultText = document.getElementById('resultText');
         const confidenceBar = document.getElementById('confidenceBar');
         const confidenceText = document.getElementById('confidenceText');
+        const loading = document.getElementById('loading');
 
         dropZone.addEventListener('click', () => fileInput.click());
         
@@ -117,6 +122,7 @@
         }
 
         predictBtn.addEventListener('click', async () => {
+            loading.style.display = 'block';
             const formData = new FormData();
             formData.append('file', fileInput.files[0]);
 
@@ -145,6 +151,8 @@
                 }
             } catch (error) {
                 alert('Terjadi kesalahan saat memproses gambar');
+            } finally {
+                loading.style.display = 'none';
             }
         });
     </script>
